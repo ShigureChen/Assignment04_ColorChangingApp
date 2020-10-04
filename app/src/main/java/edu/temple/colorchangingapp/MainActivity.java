@@ -14,13 +14,14 @@ public class MainActivity extends AppCompatActivity {
 
     GridView gridView;
     Context context;
+    private final int code = 11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] colourStr = new String[9];
+        final String[] colourStr = new String[9];
 
         colourStr[0] = "Red";
         colourStr[1] = "Yellow";
@@ -44,21 +45,24 @@ public class MainActivity extends AppCompatActivity {
         colourInt[7] = Color.GREEN;
         colourInt[8] = Color.DKGRAY;
 
-        setTitle("Color Changing App");
+        setTitle("Palette Activity");
 
         gridView = findViewById(R.id.gridView);
         final GridAdapter adapter = new GridAdapter(this, colourStr, colourInt);
         gridView.setAdapter(adapter);
-        gridView.bringToFront();
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(context, MainActivity2.class);
+                Intent intent = new Intent(MainActivity.this, CanvasActivity.class);
+                intent.putExtra("color String", colourStr[i]);
+                intent.putExtra("color Integer",colourInt[i]);
                 startActivity(intent);
             }
         });
 
 
     }
+
+
 }
